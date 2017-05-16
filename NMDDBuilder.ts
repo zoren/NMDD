@@ -19,6 +19,10 @@ function memoizeString<T, U>(f: (rec: (t: T) => U, t: T) => U, xtoString: (x: T)
     return r;
 }
 
+type VarIndex = number
+type ValueIndex = number
+type NodeIndex = number
+
 export default class NMDDBuilder {
     private domainSizes: number[];
     private nodes: Entry[];
@@ -90,6 +94,24 @@ export default class NMDDBuilder {
             return recur(c[vl]);
         };
         return memoizeString(evalEnv, (n: number) => n.toString(16))(root);
+    }
+
+    public Restrict = (outerU: NodeIndex, j: VarIndex, b: ValueIndex) => {
+        this.checkNode(outerU);
+        this.checkVar(j);
+        this.checkValue(j, b);
+        let res = (recur: (_: number) => number, u: NodeIndex) => {
+            let n = this.nodes[u];
+            let c = n.children as number[];
+            if (n.var > j) {
+                return u;
+            }
+            if (n.var < j) {
+                return this.make(n.var, c.map(recur));
+            }
+            return recur(c[b]);
+        };
+        return memoizeString(res, (n: number) => n.toString(16));
     }
 
     private make(i: number, children: number[]) {
