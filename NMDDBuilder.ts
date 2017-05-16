@@ -71,7 +71,7 @@ export default class NMDDBuilder {
         return memoizeString(app, (numbers: number[]) => numbers.join())(givenNodes);
     }
 
-    public Eval = (env: number[], t: number): number => {
+    public Eval = (env: number[], root: number): number => {
         if (env.length !== this.domainSizes.length) {
             throw new Error("env does not conver all variables");
         }
@@ -88,8 +88,8 @@ export default class NMDDBuilder {
             let vl = env[n.var];
             let c = n.children as number[];
             return recur(c[vl]);
-        }
-        return memoizeString(evalEnv, (n: number) => n.toString(16))(t);
+        };
+        return memoizeString(evalEnv, (n: number) => n.toString(16))(root);
     }
 
     private make(i: number, children: number[]) {
