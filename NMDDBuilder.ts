@@ -76,7 +76,7 @@ export default class NMDDBuilder {
             throw new Error("env does not conver all variables");
         }
         this.domainSizes.forEach((ds, i) => {
-            if (env[i] >= ds) {
+            if (typeof env[i] !== "number" || env[i] >= ds) {
                 throw new Error(`value ${env[i]} for var ${i} outside domain ${ds}`);
             }
         });
