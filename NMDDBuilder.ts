@@ -1,7 +1,7 @@
 type Entry = { var: number, children?: number[] };
 
-function toString(i: number, children: number[]) {
-    return i + " " + children.map(i => i.toString()).join(", ");
+function toString(v: number, children: number[]) {
+    return v + " " + children.map(i => i.toString()).join(", ");
 }
 
 function memoizeString<T, U>(f: (rec: (t: T) => U, t: T) => U, xtoString: (x: T) => string): (t: T) => U {

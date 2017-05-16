@@ -1,5 +1,5 @@
 {
-  "name": "NMDD",
+  "name": "nmdd-builder",
   "version": "1.0.0",
   "main": "NMDDBuilder.ts",
   "license": "MIT",
