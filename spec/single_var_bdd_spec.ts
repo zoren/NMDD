@@ -1,8 +1,8 @@
-import NMDDBuilder from "../NMDDBuilder";
+import BDDBuilder from "../BDDBuilder";
 
 describe("single variable BDD", () => {
-    let b: NMDDBuilder;
-    beforeEach(() => b = new NMDDBuilder(2, [2]));
+    let b: BDDBuilder;
+    beforeEach(() => b = new BDDBuilder(2));
     it("should throw arity mismatch", () => {
         expect(() => b.Make(0, [])).toThrowError(/arity mismatch.*/);
     });

@@ -1,8 +1,8 @@
-import NMDDBuilder from "../NMDDBuilder";
+import BDDBuilder from "../BDDBuilder";
 
 describe("two variable BDD", () => {
-    let b: NMDDBuilder;
-    beforeEach(() => b = new NMDDBuilder(2, [2, 2]));
+    let b: BDDBuilder;
+    beforeEach(() => b = new BDDBuilder(2));
 
     it("should throw on incomplete env", () => {
         let n1 = b.Make(0, [0, 1]);
