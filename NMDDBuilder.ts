@@ -107,7 +107,7 @@ export default class NMDDBuilder {
 
     private getDomainValues = (n: number) => {
         let res: number[] = [];
-        for (let i = 0; i < n; i++) {
+        for (let i = 0; i < this.domainSizes[n]; i++) {
             res.push(i);
         }
         return res;
