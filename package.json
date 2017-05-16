@@ -1,0 +1,16 @@
+{
+  "name": "NMDD",
+  "version": "1.0.0",
+  "main": "NMDDBuilder.ts",
+  "license": "MIT",
+  "scripts": {
+    "pretest": "yarn build",
+    "test": "jasmine",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.5.47",
+    "jasmine": "^2.6.0",
+    "typescript": "^2.3.2"
+  }
+}
