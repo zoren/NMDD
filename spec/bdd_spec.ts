@@ -72,4 +72,14 @@ describe("two variable BDD", () => {
         let r = b.Exists(0, n);
         expect(r).toBe(n2);
     });
+
+    it("composition", () => {
+        // check that (x and y)[not x/y] = false
+        let n1 = b.Make(0, [0, 1]);
+        let n2 = b.Make(1, [0, 1]);
+        let notn1 = b.Make(0, [1, 0]);
+        let n = b.ApplyBoolean(BDDBuilder.And, [n1, n2]);
+        let r = b.Composition(n, notn1, 1);
+        expect(r).toBe(0);
+    });
 });
