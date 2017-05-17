@@ -96,7 +96,7 @@ export default class NMDDBuilder {
         return memoizeString(evalEnv, (n: number) => n.toString(16))(root);
     }
 
-    public Restrict = (outerU: NodeIndex, j: VarIndex, b: ValueIndex) => {
+    public Restrict = (outerU: NodeIndex, j: VarIndex, b: ValueIndex): NodeIndex => {
         this.checkNode(outerU);
         this.checkVar(j);
         this.checkValue(j, b);
@@ -111,7 +111,7 @@ export default class NMDDBuilder {
             }
             return recur(c[b]);
         };
-        return memoizeString(res, (n: number) => n.toString(16));
+        return memoizeString(res, (n: number) => n.toString(16))(outerU);
     }
 
     private make(i: number, children: number[]) {
