@@ -114,6 +114,14 @@ export default class NMDDBuilder {
         return memoizeString(res, (n: number) => n.toString(16))(outerU);
     }
 
+    public getDomainValues = (n: VarIndex) => {
+        let res: number[] = [];
+        for (let i = 0; i < this.domainSizes[n]; i++) {
+            res.push(i);
+        }
+        return res;
+    }
+
     private make(i: number, children: number[]) {
         let firstChild = children[0];
         if (children.every(c => c === firstChild)) {
@@ -146,13 +154,5 @@ export default class NMDDBuilder {
         if (n < 0 || n >= this.nodes.length) {
             throw new Error(`node ${n} not defined`);
         }
-    }
-
-    private getDomainValues = (n: number) => {
-        let res: number[] = [];
-        for (let i = 0; i < this.domainSizes[n]; i++) {
-            res.push(i);
-        }
-        return res;
     }
 }
