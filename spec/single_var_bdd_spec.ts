@@ -29,6 +29,12 @@ describe("single variable BDD", () => {
         expect(b.Make(0, [1, 1])).toBe(1);
     });
 
+    it("should not allow making nodes with non-terminal children", () => {
+        let n1 = b.Make(0, [0, 1]);
+        let n2 = b.Make(0, [1, 0]);
+        expect(() => b.Make(0, [n1, n2])).toThrow();
+    });
+
     it("should return static conjunction", () => {
         let n1 = b.Make(0, [0, 1]);
         let n2 = b.Make(0, [1, 0]);

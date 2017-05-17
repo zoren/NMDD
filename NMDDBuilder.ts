@@ -46,9 +46,9 @@ export default class NMDDBuilder {
     public Make(i: number, children: number[]): number {
         this.checkVar(i);
         children.forEach(this.checkNode);
-        let domainSize = this.domainSizes[i];
-        if (domainSize !== children.length) {
-            throw new Error(`arity mismatch var has ${domainSize} values, got ${children.length}`);
+        children.forEach((n: NodeIndex) => { if (n >= this.terminals) { throw new Error(`make only accepts terminals`); } });
+        if (this.domainSizes[i] !== children.length) {
+            throw new Error(`arity mismatch var has ${this.domainSizes[i]} values, got ${children.length}`);
         }
         return this.make(i, children);
     }
