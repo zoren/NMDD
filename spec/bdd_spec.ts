@@ -56,4 +56,20 @@ describe("two variable BDD", () => {
         let r = b.Restrict(n, 0, 1);
         expect(r).toBe(n2);
     });
+
+    it("exists should return true", () => {
+        expect(b.Exists(0, 1)).toBe(1);
+    });
+
+    it("exists should return false", () => {
+        expect(b.Exists(0, 0)).toBe(0);
+    });
+
+    it("exists should return non-terminal", () => {
+        let n1 = b.Make(0, [0, 1]);
+        let n2 = b.Make(1, [0, 1]);
+        let n = b.ApplyBoolean(BDDBuilder.And, [n1, n2]);
+        let r = b.Exists(0, n);
+        expect(r).toBe(n2);
+    });
 });
