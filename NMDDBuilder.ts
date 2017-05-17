@@ -19,10 +19,6 @@ function memoizeString<T, U>(f: (rec: (t: T) => U, t: T) => U, xtoString: (x: T)
     return r;
 }
 
-type VarIndex = number
-type ValueIndex = number
-type NodeIndex = number
-
 export default class NMDDBuilder {
     private domainSizes: number[];
     private nodes: Entry[];
