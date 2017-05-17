@@ -8,12 +8,12 @@ export default class NDDBuilder extends NMDDBuilder {
         super(2, domainSizes);
     }
 
-    public ApplyBoolean(op: (_: boolean[]) => boolean, givenNodes: number[]) {
+    public ApplyBoolean(op: (_: boolean[]) => boolean, givenNodes: NodeIndex[]) {
         return this.ApplyN((ns) => op(ns.map(n => n === 1)) ? 1 : 0, givenNodes);
     }
 
-    public Exists(x: number, t: number) {
-        let or = (u: number, v: number) => this.ApplyBoolean((bs: boolean[]) => bs[0] || bs[1], [u, v]);
+    public Exists(x: VarIndex, t: NodeIndex) {
+        let or = (u: NodeIndex, v: NodeIndex) => this.ApplyBoolean((bs: boolean[]) => bs[0] || bs[1], [u, v]);
         return this.getDomainValues(x).map((v) => this.Restrict(t, x, v)).reduce(or);
     }
 }
