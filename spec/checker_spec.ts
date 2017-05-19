@@ -10,9 +10,7 @@ describe("checker two vars", () => {
         // x = 0, y = 0 ? x := 1, y := 1
         // b.x = 0, a.x = 1, b.y = 0, a.y = 1
         let I = b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(2, [1, 0])]);
-        let T1 = b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(1, [0, 1])]);
-        let T2 = b.ApplyBoolean(NDDBuilder.And, [b.Make(2, [1, 0]), b.Make(3, [0, 1])]);
-        let T = b.ApplyBoolean(NDDBuilder.And, [T1, T2]);
+        let T = b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(1, [0, 1]), b.Make(2, [1, 0]), b.Make(3, [0, 1])]);
         let n = checker.ReachableStates(I, T, [0, 2], [1, 3]);
         let test = (ns: number[], expectedValue: number) =>
             expect(b.EvalPartialEnv([ns[0], undefined, ns[1], undefined], n)).toBe(expectedValue, ns.join(""));

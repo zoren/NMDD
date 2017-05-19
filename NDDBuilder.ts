@@ -1,8 +1,8 @@
 import NMDDBuilder from "./NMDDBuilder";
 
 export default class NDDBuilder extends NMDDBuilder {
-    public static And = (bs: boolean[]) => bs[0] && bs[1];
-    public static Or = (bs: boolean[]) => bs[0] || bs[1];
+    public static And = (bs: boolean[]) => bs.every(b => b);
+    public static Or = (bs: boolean[]) => bs.some(b => b);
 
     constructor(domainSizes: number[]) {
         super(2, domainSizes);
