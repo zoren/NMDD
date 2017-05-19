@@ -19,4 +19,29 @@ describe("checker two vars", () => {
         test([1, 0], 0);
         test([1, 1], 1);
     });
+
+    it("return 2", () => {
+        let b = checker.builder;
+        // initial state: x:0, y: 0
+        // rules:
+        // x = 0, y = 0 ? x := 1, y := 0
+        // b.x = 0, a.x = 1, b.y = 0, a.y = 0
+        // x = 1, y = 0 ? x := 1, y := 1
+        // b.x = 1, a.x = 1, b.y = 0, a.y = 1        
+        let I = b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(2, [1, 0])]);
+        let T =
+            b.ApplyBoolean(NDDBuilder.Or,
+                [
+                    b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(1, [0, 1]), b.Make(2, [1, 0]), b.Make(3, [1, 0])]),
+                    b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [0, 1]), b.Make(1, [0, 1]), b.Make(2, [1, 0]), b.Make(3, [0, 1])]),
+                ]);
+        let n = checker.ReachableStates(I, T, [0, 2], [1, 3]);
+        let test = (ns: number[], expectedValue: number) =>
+            expect(b.EvalPartialEnv([ns[0], undefined, ns[1], undefined], n)).toBe(expectedValue, ns.join(""));
+        test([0, 0], 1);
+        test([0, 1], 0);
+        test([1, 0], 1);
+        test([1, 1], 1);
+    });
+
 });
