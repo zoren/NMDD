@@ -92,6 +92,22 @@ export default class NMDDBuilder {
         return memoizeString(evalEnv, (n: number) => n.toString(16))(root);
     }
 
+    public EvalPartialEnv = (env: (number | undefined)[], root: number): number => {
+        let evalEnv = (recur: (_: number) => number, t: number) => {
+            if (t < this.terminals) {
+                return t;
+            }
+            let n = this.nodes[t];
+            let vl = env[n.var];
+            if (typeof vl !== "number") {
+                throw new Error(`no value defined for var ${vl}`);
+            }
+            let c = n.children as number[];
+            return recur(c[vl]);
+        };
+        return memoizeString(evalEnv, (n: number) => n.toString(16))(root);
+    }
+
     public Restrict = (outerU: NodeIndex, j: VarIndex, b: ValueIndex): NodeIndex => {
         this.checkNode(outerU);
         this.checkVar(j);
