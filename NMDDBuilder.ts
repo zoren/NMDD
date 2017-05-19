@@ -126,6 +126,8 @@ export default class NMDDBuilder {
         return memoizeString(res, (n: number) => n.toString(16))(outerU);
     }
 
+    public GetDomainSize = (n: VarIndex) => this.domainSizes[n];
+
     public getDomainValues = (n: VarIndex) => {
         let res: number[] = [];
         for (let i = 0; i < this.domainSizes[n]; i++) {
