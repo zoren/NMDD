@@ -5,7 +5,7 @@ describe("checker two vars", () => {
     let checker = new Checker([2, 2, 2, 2]);
     let b = checker.builder;
 
-    it("return", () => {
+    it("a single rule can be applied", () => {
         // initial state: x:0, y: 0
         // rules:
         // x = 0, y = 0 ? x := 1, y := 1
@@ -21,7 +21,7 @@ describe("checker two vars", () => {
         test([1, 1], 1);
     });
 
-    it("return 2", () => {
+    it("two rules can be applied", () => {
         // initial state: x:0, y: 0
         // rules:
         // x = 0, y = 0 ? x := 1, y := 0
