@@ -73,7 +73,7 @@ export default class NMDDBuilder {
 
     public Eval = (env: number[], root: number): number => {
         if (env.length !== this.domainSizes.length) {
-            throw new Error("env does not conver all variables");
+            throw new Error("env does not cover all variables");
         }
         this.domainSizes.forEach((ds, i) => {
             if (typeof env[i] !== "number" || env[i] >= ds) {
