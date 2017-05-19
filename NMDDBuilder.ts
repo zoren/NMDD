@@ -58,7 +58,7 @@ export default class NMDDBuilder {
             if (us.every(u => u < this.terminals)) {
                 return op(us);
             }
-            let minVar = us.reduce((x, y) => Math.min(this.nodes[x].var, this.nodes[y].var));
+            let minVar = us.map(u => this.nodes[u].var).reduce((x, y) => Math.min(x, y));
             let values = this.getDomainValues(minVar);
             let nodes =
                 values.map(value => recur(us.map(u => {
