@@ -43,6 +43,33 @@ export default class NamedBuilder {
         return this.builder.Make(index, values.map(i => i === valIndex ? 1 : 0));
     }
 
+    public MakeVariableEq = (x: VariableName, y: VariableName) => {
+        let xindex = this.GetVariableIndex(x);
+        let yindex = this.GetVariableIndex(y);
+        let xValueIndex = this.valuesIndex.get(xindex);
+        let yValueIndex = this.valuesIndex.get(yindex);
+        if (xValueIndex === undefined || yValueIndex === undefined) {
+            throw new Error();
+        }
+        let xv = xValueIndex.valueToIndex;
+        let yv = yValueIndex.valueToIndex;
+        let commonValues: string[] = [];
+        xValueIndex.valueToIndex.forEach((v, k) => {
+            if (yv.get(k) !== undefined) {
+                commonValues.push(k);
+            }
+        });
+        let dx = this.builder.getDomainValues(xindex);
+        let dy = this.builder.getDomainValues(yindex);
+        return commonValues.map(v => {
+            let xvalIndex = xv.get(v);
+            let yvalIndex = yv.get(v);
+            let bx = this.builder.Make(xindex, dx.map(i => i === xvalIndex ? 1 : 0));
+            let by = this.builder.Make(yindex, dx.map(i => i === yvalIndex ? 1 : 0));
+            return this.builder.ApplyBoolean(NDDBuilder.And, [bx, by]);
+        }).reduce((b1, b2) => this.builder.ApplyBoolean(NDDBuilder.Or, [b1, b2]));
+    }
+
     public ApplyN = (op: (_: number[]) => number, givenNodes: number[]) => {
         return this.builder.ApplyN(op, givenNodes);
     }

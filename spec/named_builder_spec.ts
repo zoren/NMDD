@@ -44,6 +44,20 @@ describe("named builder", () => {
         expect(nb.EvalPartialEnv(new Map<VariableName, ValueName>([["x", "true"]]), n)).toBe(0);
     });
 
+    it("should support MakeVarEq", () => {
+        let varOrder: VariableName[] = ["x", "y"];
+        let twoVars = new Map<VariableName, Set<ValueName>>([["x", new Set(["0", "1", "2"])], ["y", new Set(["1", "2", "3"])]]);
+        let nb = new NamedBuilder(twoVars, varOrder);
+        let n = nb.MakeVariableEq("x", "y");
+        for (let x = 0; x < 3; x++) {
+            for (let y = 1; y < 4; y++) {
+                let env = new Map<VariableName, ValueName>([["x", x.toString(10)], ["y", y.toString(10)]]);
+                let c = nb.EvalPartialEnv(env, n);
+                expect(c).toBe(x === y ? 1 : 0, `x: ${x}, y: ${y}`);
+            }
+        }
+    });
+
     it("should support ApplyBoolean", () => {
         let varOrder: VariableName[] = ["x", "y"];
         let twoVars = new Map<VariableName, Set<ValueName>>([["x", new Set(["f", "t"])], ["y", new Set(["f", "t"])]]);
