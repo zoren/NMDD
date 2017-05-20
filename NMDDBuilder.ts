@@ -32,7 +32,7 @@ export default class NMDDBuilder {
         });
         this.domainSizes = domainSizes;
         let n = domainSizes.length;
-        let nodes = [];
+        let nodes: Entry[] = [];
         for (let i = 0; i < terminals; i++) {
             nodes.push({ var: n });
         }
