@@ -1,7 +1,11 @@
 {
   "name": "nmdd-builder",
-  "version": "1.0.0",
-  "main": "NMDDBuilder.ts",
+  "version": "1.0.5",
+  "main": "lib/index.js",
+  "typings": "lib/index",
+  "files": [
+    "lib/"
+  ],
   "license": "MIT",
   "scripts": {
     "pretest": "yarn build",

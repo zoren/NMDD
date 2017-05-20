@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "declaration": true,
+        "outDir": "lib/",
+
         "noImplicitAny": true,
         "strictNullChecks": true,
         "alwaysStrict": true,
@@ -8,11 +10,11 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "target": "es5",
-        "lib": [ "es2016" ],
-        "allowJs": true
+        "lib": [ "es2016" ]
     },
     "include": [
-        "**/*.ts"
+        "*.ts",
+        "spec/*.ts"
     ],
     "exclude": [
         "node_modules/"
