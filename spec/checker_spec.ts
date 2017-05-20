@@ -5,6 +5,11 @@ describe("checker two vars", () => {
     let checker = new Checker([2, 2, 2, 2]);
     let b = checker.builder;
 
+    let tester = (n: number) => (ns: number[], expectedValue: number) => {
+        let env: { [_: number]: number } = { 0: ns[0], 2: ns[1] };
+        expect(b.EvalPartialEnv((i) => env[i], n)).toBe(expectedValue, ns.join(""));
+    }
+
     it("a single rule can be applied", () => {
         // initial state: x:0, y: 0
         // rules:
@@ -13,8 +18,7 @@ describe("checker two vars", () => {
         let I = b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(2, [1, 0])]);
         let T = b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [1, 0]), b.Make(1, [0, 1]), b.Make(2, [1, 0]), b.Make(3, [0, 1])]);
         let n = checker.ReachableStates(I, T, [0, 2], [1, 3]);
-        let test = (ns: number[], expectedValue: number) =>
-            expect(b.EvalPartialEnv([ns[0], undefined, ns[1], undefined], n)).toBe(expectedValue, ns.join(""));
+        let test = tester(n);
         test([0, 0], 1);
         test([0, 1], 0);
         test([1, 0], 0);
@@ -36,8 +40,7 @@ describe("checker two vars", () => {
                     b.ApplyBoolean(NDDBuilder.And, [b.Make(0, [0, 1]), b.Make(1, [0, 1]), b.Make(2, [1, 0]), b.Make(3, [0, 1])]),
                 ]);
         let n = checker.ReachableStates(I, T, [0, 2], [1, 3]);
-        let test = (ns: number[], expectedValue: number) =>
-            expect(b.EvalPartialEnv([ns[0], undefined, ns[1], undefined], n)).toBe(expectedValue, ns.join(""));
+        let test = tester(n);
         test([0, 0], 1);
         test([0, 1], 0);
         test([1, 0], 1);
@@ -80,8 +83,7 @@ describe("checker two vars", () => {
                     b.ApplyBoolean(NDDBuilder.And, [mkEq(0, 1), b.Make(2, [1, 0]), b.Make(3, [0, 1])]),
                 ]);
         let n = checker.ReachableStates(I, T, [0, 2], [1, 3]);
-        let test = (ns: number[], expectedValue: number) =>
-            expect(b.EvalPartialEnv([ns[0], undefined, ns[1], undefined], n)).toBe(expectedValue, ns.join(""));
+        let test = tester(n);
         test([0, 0], 1);
         test([0, 1], 1);
         test([1, 0], 1);
