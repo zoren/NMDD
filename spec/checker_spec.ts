@@ -8,7 +8,7 @@ describe("checker two vars", () => {
     let tester = (n: number) => (ns: number[], expectedValue: number) => {
         let env: { [_: number]: number } = { 0: ns[0], 2: ns[1] };
         expect(b.EvalPartialEnv((i) => env[i], n)).toBe(expectedValue, ns.join(""));
-    }
+    };
 
     it("a single rule can be applied", () => {
         // initial state: x:0, y: 0
