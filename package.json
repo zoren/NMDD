@@ -8,13 +8,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "pretest": "yarn build",
+    "pretest": "npm run build",
     "test": "jasmine",
     "build": "tsc"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.47",
-    "jasmine": "^2.6.0",
-    "typescript": "^2.3.2"
+    "@types/jasmine": "^2.8.19",
+    "jasmine": "^2.99.0",
+    "typescript": "^2.9.2"
   }
 }
